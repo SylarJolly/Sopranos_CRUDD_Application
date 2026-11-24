@@ -4,7 +4,7 @@ import os
 
 from flask import Flask, flash, redirect, render_template, request, url_for
 
-from frontend import api_client as api
+from app.frontend import api_client as api
 from frontend.api_client import ApiError, ApiUnavailable
 
 app = Flask(__name__)
