@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}{{ c.name }}{% endblock %}
+{% block content %}
+<div class="card">
+  <h2 style="margin-top:0">{{ c.name }}</h2>
+  <dl>
+    <dt>Actor</dt><dd>{{ c.actor }}</dd>
+    <dt>Role</dt><dd>{{ c.role }}</dd>
+    <dt>Status</dt><dd><span class="badge {{ c.status }}">{{ c.status }}</span></dd>
+    <dt>First season</dt><dd>{{ c.first_season }}</dd>
+    <dt>ID</dt><dd>{{ c.id }}</dd>
+  </dl>
+  <div class="actions" style="justify-content:flex-start">
+    <a class="btn ghost" href="{{ url_for('index') }}">← Back</a>
+    <a class="btn" href="{{ url_for('edit', character_id=c.id) }}">Edit</a>
+    <form method="post" action="{{ url_for('delete', character_id=c.id) }}"
+          onsubmit="return confirm('Whack {{ c.name|e }}? This cannot be undone.')">
+      <button class="btn danger" type="submit">Delete</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

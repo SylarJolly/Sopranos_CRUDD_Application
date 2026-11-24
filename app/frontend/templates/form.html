@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Add character' if mode == 'create' else 'Edit ' ~ (c.name or 'character') }}{% endblock %}
+{% block content %}
+<div class="card">
+  <h2 style="margin-top:0">{{ 'Add a character' if mode == 'create' else 'Edit character' }}</h2>
+  {% if errors %}
+    <div class="errors"><ul>{% for e in errors %}<li>{{ e }}</li>{% endfor %}</ul></div>
+  {% endif %}
+  <form method="post">
+    <label for="name">Name</label>
+    <input id="name" name="name" value="{{ c.name or '' }}" required maxlength="100">
+    <label for="actor">Actor</label>
+    <input id="actor" name="actor" value="{{ c.actor or '' }}" required maxlength="100">
+    <label for="role">Role</label>
+    <input id="role" name="role" value="{{ c.role or '' }}" required maxlength="100" placeholder="Boss, Capo, Soldier…">
+    <label for="status">Status</label>
+    <select id="status" name="status">
+      {% for s in statuses %}<option value="{{ s }}" {{ 'selected' if c.status == s }}>{{ s }}</option>{% endfor %}
+    </select>
+    <label for="first_season">First season (1–6)</label>
+    <input id="first_season" name="first_season" type="number" min="1" max="6" value="{{ c.first_season or '' }}" required>
+    <div class="actions" style="justify-content:flex-start;margin-top:20px">
+      <button class="btn" type="submit">{{ 'Add' if mode == 'create' else 'Save changes' }}</button>
+      <a class="btn ghost" href="{{ url_for('index') if mode == 'create' else url_for('detail', character_id=c.id) }}">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}
