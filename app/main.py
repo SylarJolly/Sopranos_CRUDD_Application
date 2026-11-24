@@ -19,8 +19,8 @@ def start():
 
 
 app = FastAPI(
-    title="Art API",
-    description="A REST API for famous works of art.",
+    title="Sopranos API",
+    description="A REST API for characters from The Sopranos.",
     version="0.1.0",
     lifespan=lifespan,
 )
