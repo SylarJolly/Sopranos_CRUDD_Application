@@ -3,13 +3,13 @@ from sqlalchemy import Column, Integer, String
 from app.database import Base
 
 
-class Artwork(Base):
-    __tablename__ = "artworks"
+class Character(Base):
+    __tablename__ = "characters"
 
     id = Column(Integer, primary_key=True, index=True)
-    title = Column(String, index=True)
-    artist = Column(String, index=True)
-    year = Column(Integer)
-    medium = Column(String)
-    museum = Column(String)
-    image_url = Column(String)
+    name = Column(String, index=True)
+    actor = Column(String, index=True)
+    role = Column(Integer)
+    status = Column(String)
+    first_season = Column(Integer)
+    last_season = Column(Integer)
