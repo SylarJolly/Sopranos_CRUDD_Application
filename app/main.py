@@ -1,10 +1,9 @@
 from contextlib import asynccontextmanager
-
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routers import artworks
+from app.routers import characters
 from app.scripts.populate_db import populate
 
 

@@ -1,3 +1,5 @@
+from typing import Any
+
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy import func
 from sqlalchemy.orm import Session
@@ -10,9 +12,8 @@ router = APIRouter(prefix="/characters", tags=["characters"])
 NOT_FOUND_DETAIL = "Character not found"
 CONFLICT_DETAIL = "A character with that name and actor already exists"
 
-# These only add the errors to the /docs page. They don't raise anything.
-NOT_FOUND = {404: {"description": NOT_FOUND_DETAIL}}
-CONFLICT = {409: {"description": CONFLICT_DETAIL}}
+NOT_FOUND: dict[int | str, dict[str, Any]] = {404: {"description": NOT_FOUND_DETAIL}}
+CONFLICT: dict[int | str, dict[str, Any]] = {409: {"description": CONFLICT_DETAIL}}
 
 
 def get_character_or_404(character_id: int, db: Session) -> Character:
