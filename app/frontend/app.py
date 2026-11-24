@@ -5,7 +5,7 @@ import os
 from flask import Flask, flash, redirect, render_template, request, url_for
 
 from app.frontend import api_client as api
-from frontend.api_client import ApiError, ApiUnavailable
+from app.frontend.api_client import ApiError, ApiUnavailable
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "dev-only-change-me")
