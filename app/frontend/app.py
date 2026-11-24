@@ -93,3 +93,8 @@ def page_not_found(error):
 @app.errorhandler(requests.RequestException)
 def api_unavailable(error):
     return render_template("api_down.html"), 503
+
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
