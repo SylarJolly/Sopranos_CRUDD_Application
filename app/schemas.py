@@ -21,16 +21,3 @@ class CharacterUpdate(CharacterBase):
 class CharacterResponse(CharacterBase):
     id: int
     model_config = ConfigDict(from_attributes=True)
-
-
-
-
-class CharacterCreate(CharacterBase):
-    """Body for POST and PUT: every field is required."""
-
-
-class CharacterRead(CharacterBase):
-    """Response shape: the fields above plus the database ID."""
-
-    id: int
-    model_config = ConfigDict(from_attributes=True)

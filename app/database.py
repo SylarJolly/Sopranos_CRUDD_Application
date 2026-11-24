@@ -1,5 +1,5 @@
 from sqlalchemy import create_engine
-from sqlalchemy.orm import DeclarativeBase, sessionmaker
+from sqlalchemy.orm import declarative_base, sessionmaker
 
 # Main database configuration
 SQLALCHEMY_DATABASE_URL = "sqlite:///./sopranos.db"
@@ -8,10 +8,8 @@ engine = create_engine(
 )
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-Base = DeclarativeBase()
+Base = declarative_base()
 
-class Base(DeclarativeBase):
-    pass
 
 def get_db():
     """Give each request its own database session, and close it afterward.

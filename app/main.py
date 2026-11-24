@@ -33,4 +33,4 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(artworks.router)
+app.include_router(characters.router)
