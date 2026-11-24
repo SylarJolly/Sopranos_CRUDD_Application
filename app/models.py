@@ -12,4 +12,4 @@ class Character(Base):
     role = Column(Integer)
     status = Column(String)
     first_season = Column(Integer)
-    last_season = Column(Integer)
+    last_season = Column(String)

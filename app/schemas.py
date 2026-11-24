@@ -4,7 +4,7 @@ class CharacterBase(BaseModel):
     name: str = Field(min_length=1, max_length=100)
     actor: str = Field(min_length=1, max_length=100)
     role: str = Field(min_length=1, max_length=100)
-    status: str = Field(min_length=1, max_length=7)
+    status: str = Field(min_length=1, max_length=10)
     first_season: int = Field(ge=1, le=6, strict=True)
     last_season: int = Field(ge=1, le=6, strict=True)
 

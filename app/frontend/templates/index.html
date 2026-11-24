@@ -1,36 +1,20 @@
 {% extends "base.html" %}
-{% block content %}
-<div class="bar">
-  <form class="search" method="get">
-    <input type="search" name="q" value="{{ q }}" placeholder="Search by name…" aria-label="Search by name">
-    <button class="btn ghost" type="submit">Search</button>
-  </form>
-  <a class="btn" href="{{ url_for('create') }}">+ Add character</a>
-</div>
+{% block title %}Home{% endblock %}
 
-{% if characters %}
-<table>
-  <thead><tr><th>Name</th><th>Actor</th><th>Role</th><th>Status</th><th>Season</th><th></th></tr></thead>
-  <tbody>
-  {% for c in characters %}
-    <tr>
-      <td><a href="{{ url_for('detail', character_id=c.id) }}">{{ c.name }}</a></td>
-      <td>{{ c.actor }}</td>
-      <td>{{ c.role }}</td>
-      <td><span class="badge {{ c.status }}">{{ c.status }}</span></td>
-      <td>{{ c.first_season }}</td>
-      <td class="actions">
-        <a class="btn ghost sm" href="{{ url_for('edit', character_id=c.id) }}">Edit</a>
-        <form method="post" action="{{ url_for('delete', character_id=c.id) }}"
-              onsubmit="return confirm('Whack {{ c.name|e }}? This cannot be undone.')">
-          <button class="btn danger sm" type="submit">Delete</button>
-        </form>
-      </td>
-    </tr>
-  {% endfor %}
-  </tbody>
-</table>
-{% else %}
-  <p class="empty">No characters found{% if q %} matching “{{ q }}”{% endif %}.</p>
-{% endif %}
+{% block content %}
+    <div class="intro">
+        <h1>The Sopranos Character API</h1>
+        <p>
+            This site is the front end for a REST API about the characters of
+            <em>The Sopranos</em>. The API is built with FastAPI and stores each
+            character's name, actor, role, status, and the first and last season
+            they appeared in.
+        </p>
+        <p>
+            Through this site you can browse the cast, view a single character,
+            add a new one, edit an existing one, or delete one. Every action is
+            sent to the API, which saves the changes in the database.
+        </p>
+        <a class="btn" href="{{ url_for('characters') }}">View the characters</a>
+    </div>
 {% endblock %}

@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}Characters{% endblock %} · Sopranos</title>
+  <title>{% block title %}Sopranos{% endblock %} · The Sopranos</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
   <header>
-    <h1><a href="{{ url_for('index') }}">The Sopranos</a></h1>
-    <span>Character registry</span>
+    <h1><a href="{{ url_for('home') }}">The Sopranos</a></h1>
+    <nav>
+      <a href="{{ url_for('home') }}">Home</a>
+      <a href="{{ url_for('characters') }}">Characters</a>
+    </nav>
   </header>
   <main>
-    {% for category, message in get_flashed_messages(with_categories=true) %}
-      <div class="flash">{{ message }}</div>
-    {% endfor %}
     {% block content %}{% endblock %}
   </main>
 </body>

@@ -1,72 +1,42 @@
-"""Thin wrapper around the Sopranos API. The frontend only talks HTTP, never the DB."""
-
-import os
-
 import requests
 
-API_URL = os.environ.get("API_URL", "http://localhost:8000").rstrip("/")
-TIMEOUT = 5
+API_URL = "http://127.0.0.1:8000"
+TIMEOUT = 5  # seconds; never wait forever on an API/server to respond
 
 
-class ApiError(Exception):
-    """The API answered with an error status."""
-
-    def __init__(self, status_code: int, messages: list[str]):
-        super().__init__(", ".join(messages))
-        self.status_code = status_code
-        self.messages = messages
+def get_json(path, params=None):
+    response = requests.get(f"{API_URL}{path}", params=params, timeout=TIMEOUT)
+    response.raise_for_status()  # turn 4XX/5XX into an exception
+    return response.json()
 
 
-class ApiUnavailable(Exception):
-    """The API could not be reached at all."""
+def get_characters(name=None):
+    # requests leave out params whose value is `None`, so no if/else is necessary
+    return get_json("/characters/", params={"name": name, "limit": 100})
 
 
-def _messages(response: requests.Response) -> list[str]:
-    """Turn FastAPI's error body into a list of readable strings."""
-    try:
-        detail = response.json().get("detail")
-    except ValueError:
-        return [f"API returned {response.status_code}"]
-    if isinstance(detail, str):
-        return [detail]
-    if isinstance(detail, list):  # 422 validation errors
-        return [
-            f"{(e['loc'][-1] if e.get('loc') else 'field')}: {e.get('msg', 'invalid')}"
-            for e in detail
-        ]
-    return [f"API returned {response.status_code}"]
+def get_character(character_id):
+    response = requests.get(f"{API_URL}/characters/{character_id}", timeout=TIMEOUT)
+    if response.status_code == 404:
+        return None
+    response.raise_for_status()
+    return response.json()
 
 
-def _request(method: str, path: str, **kwargs):
-    try:
-        response = requests.request(
-            method, f"{API_URL}{path}", timeout=TIMEOUT, **kwargs
-        )
-    except requests.RequestException as exc:
-        raise ApiUnavailable(str(exc)) from exc
-    if not response.ok:
-        raise ApiError(response.status_code, _messages(response))
-    return response
+def add_character(character):
+    response = requests.post(f"{API_URL}/characters/", json=character, timeout=TIMEOUT)
+    response.raise_for_status()
+    return response.json()
 
 
-def list_characters(name: str | None = None) -> list[dict]:
-    params = {"limit": 100}
-    if name:
-        params["name"] = name
-    return _request("GET", "/characters/", params=params).json()
+def update_character(character_id, character):
+    response = requests.put(
+        f"{API_URL}/characters/{character_id}", json=character, timeout=TIMEOUT
+    )
+    response.raise_for_status()
+    return response.json()
 
 
-def get_character(character_id: int) -> dict:
-    return _request("GET", f"/characters/{character_id}").json()
-
-
-def create_character(data: dict) -> dict:
-    return _request("POST", "/characters/", json=data).json()
-
-
-def update_character(character_id: int, data: dict) -> dict:
-    return _request("PUT", f"/characters/{character_id}", json=data).json()
-
-
-def delete_character(character_id: int) -> None:
-    _request("DELETE", f"/characters/{character_id}")
+def delete_character(character_id):
+    response = requests.delete(f"{API_URL}/characters/{character_id}", timeout=TIMEOUT)
+    response.raise_for_status()

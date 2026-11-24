@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}{{ character.name }}{% endblock %}
+
+{% block content %}
+    <div class="card profile">
+        <img class="portrait" src="{{ url_for('static', filename='images/' ~ character.id ~ '.jpg') }}"
+             alt="">
+        <div>
+            <h1>{{ character.name }}</h1>
+            <dl>
+                <dt>Actor</dt><dd>{{ character.actor }}</dd>
+                <dt>Role</dt><dd>{{ character.role }}</dd>
+                <dt>Status</dt><dd><span class="badge {{ character.status }}">{{ character.status }}</span></dd>
+                <dt>First season</dt><dd>{{ character.first_season }}</dd>
+                <dt>Last season</dt><dd>{{ character.last_season }}</dd>
+            </dl>
+            <div class="actions" style="justify-content:flex-start">
+                <a class="btn ghost" href="{{ url_for('characters') }}">Back</a>
+                <a class="btn" href="{{ url_for('edit', character_id=character.id) }}">Edit</a>
+                <form method="post" action="{{ url_for('delete', character_id=character.id) }}">
+                    <button class="btn danger" type="submit">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

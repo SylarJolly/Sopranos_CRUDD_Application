@@ -30,3 +30,12 @@ label{display:block;margin:12px 0 4px;color:var(--muted)}
 .errors{padding:10px 14px;border-radius:6px;margin-bottom:8px;border:1px solid var(--red);color:#e58c85}
 .errors ul{margin:0;padding-left:18px}
 .empty{color:var(--muted);text-align:center;padding:32px}
+
+/* intro page, nav and images */
+nav{margin-left:auto;display:flex;gap:16px}
+.intro{max-width:620px;margin:48px auto;text-align:center}
+.intro h1{letter-spacing:.06em}
+.intro p{color:var(--muted)}
+.thumb{width:48px;height:48px;object-fit:cover;border-radius:50%;display:block}
+.profile{display:flex;gap:24px;align-items:flex-start;max-width:720px}
+.portrait{width:200px;height:240px;object-fit:cover;border-radius:8px}

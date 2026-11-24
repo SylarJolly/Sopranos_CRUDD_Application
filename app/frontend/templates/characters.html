@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Characters{% endblock %}
+
+{% block content %}
+    <h1>Characters</h1>
+    <div class="bar">
+        <form class="search" method="get">
+            <input type="search" name="name" value="{{ name or '' }}" placeholder="Search by name">
+            <button class="btn ghost" type="submit">Search</button>
+        </form>
+        <a class="btn" href="{{ url_for('add') }}">+ Add character</a>
+    </div>
+
+    {% if characters %}
+    <table>
+        <thead>
+            <tr><th></th><th>Name</th><th>Actor</th><th>Role</th><th>Status</th><th>Seasons</th><th></th></tr>
+        </thead>
+        <tbody>
+        {% for c in characters %}
+            <tr>
+                <td>
+                    <img class="thumb" src="{{ url_for('static', filename='images/' ~ c.id ~ '.jpg') }}"
+                         alt="">
+                </td>
+                <td><a href="{{ url_for('character', character_id=c.id) }}">{{ c.name }}</a></td>
+                <td>{{ c.actor }}</td>
+                <td>{{ c.role }}</td>
+                <td><span class="badge {{ c.status }}">{{ c.status }}</span></td>
+                <td>{{ c.first_season }}–{{ c.last_season }}</td>
+                <td class="actions">
+                    <a class="btn ghost sm" href="{{ url_for('edit', character_id=c.id) }}">Edit</a>
+                    <form method="post" action="{{ url_for('delete', character_id=c.id) }}">
+                        <button class="btn danger sm" type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>No characters found.</p>
+    {% endif %}
+{% endblock %}
