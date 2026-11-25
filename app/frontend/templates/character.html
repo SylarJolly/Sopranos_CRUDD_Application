@@ -3,7 +3,7 @@
 
 {% block content %}
     <div class="card profile">
-        <img class="portrait" src="{{ url_for('static', filename='images/' ~ character.id ~ '.png') }}"
+        <img class="portrait" src="{{ url_for('static', filename='images/' ~ character.name|photo) }}"
              alt="">
         <div>
             <h1>{{ character.name }}</h1>

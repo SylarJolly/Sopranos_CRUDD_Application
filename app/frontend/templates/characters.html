@@ -23,7 +23,7 @@
         {% for c in characters %}
             <tr>
                 <td>
-                    <img class="thumb" src="{{ url_for('static', filename='images/' ~ c.id ~ '.jpg') }}"
+                    <img class="thumb" src="{{ url_for('static', filename='images/' ~ c.name|photo) }}"
                          alt="">
                 </td>
                 <td><a href="{{ url_for('character', character_id=c.id) }}">{{ c.name }}</a></td>

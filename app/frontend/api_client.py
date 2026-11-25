@@ -11,7 +11,6 @@ def get_json(path, params=None):
 
 
 def get_characters(name=None):
-    # requests leave out params whose value is `None`, so no if/else is necessary
     return get_json("/characters/", params={"name": name, "limit": 100})
 
 

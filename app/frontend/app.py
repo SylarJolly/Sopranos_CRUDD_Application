@@ -1,18 +1,10 @@
 import api_client
 import requests
-from flask import (
-    Flask,
-    abort,
-    redirect,
-    render_template,
-    request,
-    session,
-    url_for,
-)
-
+from flask import (Flask, abort, redirect, render_template, request, session, url_for)
+import re
 app = Flask(__name__)
 app.secret_key = (
-    "sopranos-dev-key"  # needed so Flask can remember the last action for undo
+    "sopranos-dev-key"
 )
 
 FIELDS = ["name", "actor", "role", "status", "first_season", "last_season"]
@@ -20,7 +12,6 @@ FIELDS = ["name", "actor", "role", "status", "first_season", "last_season"]
 
 @app.context_processor
 def inject_undo():
-    # makes `undo` available in every template (used by the banner in base.html)
     return {"undo": session.get("undo")}
 
 
@@ -56,7 +47,6 @@ def read_form():
 
 
 def api_error_message(error):
-    # 409 sends a text message; 422 sends a list of problems
     detail = error.response.json().get("detail")
     if isinstance(detail, str):
         return detail
@@ -123,26 +113,28 @@ def undo():
         return redirect(url_for("characters"))
     try:
         if last["action"] == "delete":
-            # the API gives the restored character a new id
             api_client.add_character(last["character"])
             return redirect(url_for("characters"))
         api_client.update_character(last["id"], last["character"])
         return redirect(url_for("character", character_id=last["id"]))
     except requests.HTTPError:
-        # e.g. the character was already re-added, or no longer exists
         return redirect(url_for("characters"))
 
 
-# Error handler for custom 404 page
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template("404.html"), 404
 
 
-# If the API is down, too slow, or sends an error
 @app.errorhandler(requests.RequestException)
 def api_unavailable(error):
     return render_template("api_down.html"), 503
+
+#GEN AI used for this function, so that images don't disappear when undoing a delete
+@app.template_filter("photo")
+def photo(name):
+    # "Dr. Jennifer Melfi" -> "dr-jennifer-melfi.png"
+    return re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-") + ".png"
 
 
 if __name__ == "__main__":
