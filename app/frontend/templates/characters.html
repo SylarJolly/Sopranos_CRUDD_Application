@@ -2,6 +2,9 @@
 {% block title %}Characters{% endblock %}
 
 {% block content %}
+<div class="with-guns">
+    <img class="gun" src="{{ url_for('static', filename='images/gun.svg') }}" alt="">
+    <div>
     <h1>Characters</h1>
     <div class="bar">
         <form class="search" method="get">
@@ -41,4 +44,7 @@
     {% else %}
         <p>No characters found.</p>
     {% endif %}
+    </div>
+    <img class="gun down" src="{{ url_for('static', filename='images/gun.svg') }}" alt="">
+</div>
 {% endblock %}

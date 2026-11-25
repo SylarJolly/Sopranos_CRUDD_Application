@@ -1,8 +1,27 @@
 import api_client
 import requests
-from flask import Flask, abort, redirect, render_template, request, url_for
+from flask import (
+    Flask,
+    abort,
+    redirect,
+    render_template,
+    request,
+    session,
+    url_for,
+)
 
 app = Flask(__name__)
+app.secret_key = (
+    "sopranos-dev-key"  # needed so Flask can remember the last action for undo
+)
+
+FIELDS = ["name", "actor", "role", "status", "first_season", "last_season"]
+
+
+@app.context_processor
+def inject_undo():
+    # makes `undo` available in every template (used by the banner in base.html)
+    return {"undo": session.get("undo")}
 
 
 @app.route("/")
@@ -67,6 +86,12 @@ def edit(character_id):
         data = read_form()
         try:
             api_client.update_character(character_id, data)
+            session["undo"] = {
+                "action": "edit",
+                "id": character_id,
+                "label": f"Edited {found['name']}.",
+                "character": {field: found[field] for field in FIELDS},
+            }
         except requests.HTTPError as error:
             return render_template(
                 "form.html",
@@ -79,8 +104,33 @@ def edit(character_id):
 
 @app.route("/delete/<int:character_id>", methods=["POST"])
 def delete(character_id):
+    found = api_client.get_character(character_id)
+    if found is None:
+        abort(404)
     api_client.delete_character(character_id)
+    session["undo"] = {
+        "action": "delete",
+        "label": f"Deleted {found['name']}.",
+        "character": {field: found[field] for field in FIELDS},
+    }
     return redirect(url_for("characters"))
+
+
+@app.route("/undo", methods=["POST"])
+def undo():
+    last = session.pop("undo", None)
+    if last is None:
+        return redirect(url_for("characters"))
+    try:
+        if last["action"] == "delete":
+            # the API gives the restored character a new id
+            api_client.add_character(last["character"])
+            return redirect(url_for("characters"))
+        api_client.update_character(last["id"], last["character"])
+        return redirect(url_for("character", character_id=last["id"]))
+    except requests.HTTPError:
+        # e.g. the character was already re-added, or no longer exists
+        return redirect(url_for("characters"))
 
 
 # Error handler for custom 404 page
@@ -93,7 +143,6 @@ def page_not_found(error):
 @app.errorhandler(requests.RequestException)
 def api_unavailable(error):
     return render_template("api_down.html"), 503
-
 
 
 if __name__ == "__main__":
