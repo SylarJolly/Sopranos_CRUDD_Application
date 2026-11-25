@@ -1,7 +1,7 @@
 import requests
 
 API_URL = "http://127.0.0.1:8000"
-TIMEOUT = 5  # seconds; never wait forever on an API/server to respond
+TIMEOUT = 5 
 
 
 def get_json(path, params=None):
