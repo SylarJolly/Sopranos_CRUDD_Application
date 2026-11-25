@@ -9,99 +9,99 @@ characters_data = [
     {
         "name": "Tony Soprano",
         "actor": "James Gandolfini",
-        "role": "Boss",
+        "role": "Boss of the DiMeo Crime Family",
         "status": "Unknown",
         "first_season": 1,
-        "last_season": 1
+        "last_season": 6
     },
     {
         "name": "Carmela Soprano",
         "actor": "Edie Falco",
-        "role": "Wife of Tony",
+        "role": "Tony's Wife",
         "status": "Alive",
         "first_season": 1,
-        "last_season": 1
+        "last_season": 6
     },
     {
         "name": "Christopher Moltisanti",
         "actor": "Michael Imperioli",
-        "role": "Capo",
+        "role": "Capo in the Soprano Crime Family",
         "status": "Dead",
         "first_season": 1,
-        "last_season": 1
+        "last_season": 6
     },
     {
         "name": "Paulie Gualtieri",
         "actor": "Tony Sirico",
-        "role": "Capo",
+        "role": "Capo in the Soprano Crime Family",
         "status": "Alive",
         "first_season": 1,
-        "last_season": 1
+        "last_season": 6
     },
     {
         "name": "Silvio Dante",
         "actor": "Steven Van Zandt",
-        "role": "Consigliere",
-        "status": "Alive",
+        "role": "Consigliere to Tony Soprano",
+        "status": "Comatose",
         "first_season": 1,
-        "last_season": 1
+        "last_season": 6
     },
     {
         "name": "Dr. Jennifer Melfi",
         "actor": "Lorraine Bracco",
-        "role": "Psychiatrist",
+        "role": "Tony's Psychiatrist",
         "status": "Alive",
         "first_season": 1,
-        "last_season": 1
+        "last_season": 6
     },
     {
         "name": "Junior Soprano",
         "actor": "Dominic Chianese",
-        "role": "Former Boss",
+        "role": "Tony's Uncle and Former Boss",
         "status": "Alive",
         "first_season": 1,
-        "last_season": 1
+        "last_season": 6
     },
     {
         "name": "Livia Soprano",
         "actor": "Nancy Marchand",
-        "role": "Matriarch",
+        "role": "Tony's Mother",
         "status": "Dead",
         "first_season": 1,
-        "last_season": 1
+        "last_season": 3
     },
     {
         "name": "Adriana La Cerva",
         "actor": "Drea de Matteo",
-        "role": "Girlfriend of Christopher",
+        "role": "Christopher's Fiancée",
         "status": "Dead",
         "first_season": 1,
-        "last_season": 1
+        "last_season": 5
     },
     {
-        "name": "Big Pussy Bonpensiero",
+        "name": "Salvatore Bonpensiero",
         "actor": "Vincent Pastore",
-        "role": "Soldier",
+        "role": "Soprano Family Soldier and FBI Informant",
         "status": "Dead",
         "first_season": 1,
-        "last_season": 1
+        "last_season": 2
     },
     {
         "name": "Meadow Soprano",
         "actor": "Jamie-Lynn Sigler",
-        "role": "Daughter of Tony",
+        "role": "Tony's Daughter",
         "status": "Alive",
         "first_season": 1,
-        "last_season": 1
+        "last_season": 6
     },
     {
         "name": "A.J. Soprano",
         "actor": "Robert Iler",
-        "role": "Son of Tony",
+        "role": "Tony's Son",
         "status": "Alive",
         "first_season": 1,
-        "last_season": 1
-    },
+        "last_season": 6
+    }
 ]
 
 
