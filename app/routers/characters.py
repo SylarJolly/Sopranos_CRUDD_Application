@@ -16,6 +16,7 @@ CONFLICT_DETAIL = "A character with that name and actor already exists"
 NOT_FOUND: dict[int | str, dict[str, Any]] = {404: {"description": NOT_FOUND_DETAIL}}
 CONFLICT: dict[int | str, dict[str, Any]] = {409: {"description": CONFLICT_DETAIL}}
 
+# Finds a character by ID or returns a 404 error.
 
 def get_character_or_404(character_id: int, db: Session) -> Character:
     character = db.query(Character).filter(Character.id == character_id).first()
@@ -25,6 +26,7 @@ def get_character_or_404(character_id: int, db: Session) -> Character:
         )
     return character
 
+# Checks if a character with the same name and actor already exists.
 
 def check_for_duplicate(
     name: str, actor: str, db: Session, ignore_id: int | None = None
@@ -41,6 +43,7 @@ def check_for_duplicate(
             status_code=status.HTTP_409_CONFLICT, detail=CONFLICT_DETAIL
         )
 
+# Returns a list of characters with optional name filtering.
 
 @router.get("/", response_model=list[CharacterResponse])
 def read_characters(
@@ -66,6 +69,7 @@ def read_characters(
         query = query.filter(Character.name.ilike(f"%{name}%"))
     return query.order_by(Character.id).offset(skip).limit(limit).all()
 
+# Returns a single character by ID.
 
 @router.get("/{character_id}", response_model=CharacterResponse, responses=NOT_FOUND)
 def read_character(character_id: int, db: Session = Depends(get_db)):
@@ -79,6 +83,9 @@ def read_character(character_id: int, db: Session = Depends(get_db)):
     status_code=status.HTTP_201_CREATED,
     responses=CONFLICT,
 )
+
+# Creates a new character and saves it to the database.
+
 def create_character(character: CharacterCreate, db: Session = Depends(get_db)):
     """
     Create a new character and return it with its new ID.
@@ -99,6 +106,9 @@ def create_character(character: CharacterCreate, db: Session = Depends(get_db)):
     response_model=CharacterResponse,
     responses={**NOT_FOUND, **CONFLICT},
 )
+
+# Updates all fields of an existing character.
+
 def update_character(
     character_id: int, character: CharacterUpdate, db: Session = Depends(get_db)
 ):
@@ -116,6 +126,7 @@ def update_character(
     db.refresh(db_character)
     return db_character
 
+# Deletes a character from the database by ID.
 
 @router.delete(
     "/{character_id}", status_code=status.HTTP_204_NO_CONTENT, responses=NOT_FOUND
