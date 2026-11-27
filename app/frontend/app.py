@@ -14,7 +14,7 @@ FIELDS = ["name", "actor", "role", "status", "first_season", "last_season"]
 
 PHOTO_FOLDER = os.path.join(app.static_folder, "images")
 
-# Saves an uploade PNG as character-name.png
+# Saves an uploade PNG as character-name.png 
 def save_photo(name):
     photo_file = request.files.get("photo")
     if photo_file and photo_file.filename.lower().endswith(".png"):
