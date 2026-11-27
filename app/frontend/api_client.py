@@ -6,7 +6,7 @@ TIMEOUT = 5
 
 def get_json(path, params=None):
     response = requests.get(f"{API_URL}{path}", params=params, timeout=TIMEOUT)
-    response.raise_for_status()  # turn 4XX/5XX into an exception
+    response.raise_for_status()
     return response.json()
 
 
