@@ -9,28 +9,36 @@ A full-stack CRUD application for characters from *The Sopranos*.
 ## File Structure
 
 Sopranos_CRUDD_Application/
-├── app/                        BACKEND (FastAPI API)
-│   ├── main.py                 App setup, CORS, router registration
-│   ├── database.py             SQLite engine, session, get_db dependency
-│   ├── models.py               SQLAlchemy model (the characters table)
-│   ├── schemas.py              Pydantic schemas (validation rules)
+├── .github/
+│   └── workflows/
+│       └── ci.yaml               # Runs Ruff and pytest on every push
+├── app/                          # BACKEND (FastAPI)
+│   ├── __init__.py
+│   ├── main.py                   # App setup, CORS, router registration
+│   ├── database.py               # SQLite engine, session, get_db dependency
+│   ├── models.py                 # SQLAlchemy model (characters table)
+│   ├── schemas.py                # Pydantic schemas (validation rules)
 │   ├── routers/
-│   │   └── characters.py       The five CRUD endpoints
+│   │   ├── __init__.py
+│   │   └── characters.py         # The five CRUD endpoints
 │   ├── scripts/
-│   │   └── populate_db.py      Seeds the database with 12 characters
-│   └── frontend/               FRONTEND (Flask)
-│       ├── app.py              Flask routes: list, details, add, edit, delete, undo
-│       ├── api_client.py       All HTTP requests to the API
-│       ├── templates/          Jinja pages (base, index, characters, character, form, 404, api_down)
-│       └── static/             CSS and images (logo, guns, character photos)
+│   │   ├── __init__.py
+│   │   └── populate_db.py        # Seeds the database with 12 characters
+│   └── frontend/                 # FRONTEND (Flask)
+│       ├── __init__.py
+│       ├── app.py                # Routes: list, details, add, edit, delete, undo
+│       ├── api_client.py         # All HTTP requests to the API
+│       ├── templates/            # Jinja HTML pages
+│       └── static/               # CSS and images
 ├── tests/
-│   ├── conftest.py             In-memory test database and fixtures
-│   └── test_characters.py      33 pytest tests
-├── sopranos.db                 SQLite database
-├── requirements.txt            Dependencies
-├── pyproject.toml              Project and pytest/Ruff settings
-├── README.md                   How to set up and run
-└── .github/workflows/ci.yaml   Runs Ruff and pytest on every push
+│   ├── __init__.py
+│   ├── conftest.py               # In-memory test database and fixtures
+│   └── test_characters.py        # pytest tests for every endpoint
+├── .gitignore
+├── pyproject.toml                # Project info, pytest and Ruff settings
+├── requirements.txt              # Dependencies
+├── sopranos.db                   # SQLite database
+└── README.md
 
 ## Setup
 
