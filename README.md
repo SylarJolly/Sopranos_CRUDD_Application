@@ -6,39 +6,41 @@ A full-stack CRUD application for characters from *The Sopranos*.
 - **Frontend:** Flask + Jinja templates (`app/frontend/`). It talks to the API over HTTP only and never touches the database.
 - **Tests:** pytest (`tests/`)
 
-## File Structure
+## Project Structure
 
+```text
 Sopranos_CRUDD_Application/
 ├── .github/
 │   └── workflows/
 │       └── ci.yaml               # Runs Ruff and pytest on every push
-├── app/                          # BACKEND (FastAPI)
+├── app/                           # BACKEND (FastAPI)
 │   ├── __init__.py
-│   ├── main.py                   # App setup, CORS, router registration
-│   ├── database.py               # SQLite engine, session, get_db dependency
-│   ├── models.py                 # SQLAlchemy model (characters table)
-│   ├── schemas.py                # Pydantic schemas (validation rules)
+│   ├── main.py                    # App setup, CORS, router registration
+│   ├── database.py                # SQLite engine, session, get_db dependency
+│   ├── models.py                  # SQLAlchemy model (characters table)
+│   ├── schemas.py                 # Pydantic schemas (validation rules)
 │   ├── routers/
 │   │   ├── __init__.py
-│   │   └── characters.py         # The five CRUD endpoints
+│   │   └── characters.py          # The five CRUD endpoints
 │   ├── scripts/
 │   │   ├── __init__.py
-│   │   └── populate_db.py        # Seeds the database with 12 characters
-│   └── frontend/                 # FRONTEND (Flask)
+│   │   └── populate_db.py         # Seeds the database with 12 characters
+│   └── frontend/                   # FRONTEND (Flask)
 │       ├── __init__.py
-│       ├── app.py                # Routes: list, details, add, edit, delete, undo
-│       ├── api_client.py         # All HTTP requests to the API
-│       ├── templates/            # Jinja HTML pages
-│       └── static/               # CSS and images
+│       ├── app.py                 # Routes: list, details, add, edit, delete, undo
+│       ├── api_client.py          # All HTTP requests to the API
+│       ├── templates/             # Jinja HTML pages
+│       └── static/                # CSS and images
 ├── tests/
 │   ├── __init__.py
-│   ├── conftest.py               # In-memory test database and fixtures
-│   └── test_characters.py        # pytest tests for every endpoint
+│   ├── conftest.py                # In-memory test database and fixtures
+│   └── test_characters.py         # pytest tests for every endpoint
 ├── .gitignore
-├── pyproject.toml                # Project info, pytest and Ruff settings
-├── requirements.txt              # Dependencies
-├── sopranos.db                   # SQLite database
+├── pyproject.toml                  # Project info, pytest and Ruff settings
+├── requirements.txt                # Dependencies
+├── sopranos.db                    # SQLite database
 └── README.md
+```
 
 ## Setup
 
