@@ -57,3 +57,7 @@ Each character has a `name`, `actor`, `role`, `status`, `first_season` and `last
 ## Character photos
 
 Photos go in `app/frontend/static/images/` and are named after the character in lowercase with hyphens, for example `tony-soprano.png`.
+
+## Note
+All code is greatly influenced by William Rochelle's Lab06 Starter Code (https://github.com/rochellew/csci_2910_labs/wiki/Lab-06:-Testing-Code-using-FastAPI) and his bluesky_flask_final code. 
+
