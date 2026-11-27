@@ -1,7 +1,9 @@
+import re
+
 import api_client
 import requests
-from flask import (Flask, abort, redirect, render_template, request, session, url_for)
-import re
+from flask import Flask, abort, redirect, render_template, request, session, url_for
+
 app = Flask(__name__)
 app.secret_key = (
     "sopranos-dev-key"

@@ -18,7 +18,7 @@
 
         <label for="status">Status</label>
         <select id="status" name="status">
-            {% for s in ["Alive", "Dead", "Unknown"] %}
+            {% for s in ["Alive", "Dead", "Comatose", "Imprisoned", "Unknown"] %}
                 <option value="{{ s }}" {% if character.status == s %}selected{% endif %}>{{ s }}</option>
             {% endfor %}
         </select>

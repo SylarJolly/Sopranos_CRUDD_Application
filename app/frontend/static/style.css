@@ -309,7 +309,7 @@ label {
     width: 200px;
     height: 240px;
     object-fit: cover;
-    background: url("images/default.svg") center / cover;
+    background: url("images/default.png") center / cover;
     border: 1px solid var(--line);
     border-radius: 4px;
 }
@@ -319,7 +319,7 @@ label {
     width: 48px;
     height: 48px;
     object-fit: cover;
-    background: url("images/default.svg") center / cover;
+    background: url("images/default.png") center / cover;
     border: 2px solid var(--red);
     border-radius: 50%;
 }
