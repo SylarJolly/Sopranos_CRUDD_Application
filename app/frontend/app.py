@@ -1,3 +1,4 @@
+import os
 import re
 
 import api_client
@@ -11,6 +12,14 @@ app.secret_key = (
 
 FIELDS = ["name", "actor", "role", "status", "first_season", "last_season"]
 
+PHOTO_FOLDER = os.path.join(app.static_folder, "images")
+
+# saves uploade PNG as <character-name>.png
+
+def save_photo(name):
+    photo_file = request.files.get("photo")
+    if photo_file and photo_file.filename.lower().endswith(".png"):
+        photo_file.save(os.path.join(PHOTO_FOLDER, photo(name)))
 
 @app.context_processor
 def inject_undo():
@@ -65,6 +74,7 @@ def add():
             return render_template(
                 "form.html", character=data, error=api_error_message(error)
             )
+        save_photo(created["name"])
         return redirect(url_for("character", character_id=created["id"]))
     return render_template("form.html", character={})
 
@@ -90,6 +100,7 @@ def edit(character_id):
                 character={**data, "id": character_id},
                 error=api_error_message(error),
             )
+        save_photo(data["name"])                                  
         return redirect(url_for("character", character_id=character_id))
     return render_template("form.html", character=found)
 

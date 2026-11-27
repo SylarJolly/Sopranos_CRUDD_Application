@@ -6,7 +6,7 @@
     {% if error %}
         <p class="errors">{{ error }}</p>
     {% endif %}
-    <form class="card" method="post">
+    <form class="card" method="post" enctype="multipart/form-data">
         <label for="name">Name</label>
         <input id="name" name="name" value="{{ character.name or '' }}" required>
 
@@ -30,7 +30,8 @@
         <label for="last_season">Last season (1-6)</label>
         <input id="last_season" name="last_season" type="number" min="1" max="6"
                value="{{ character.last_season or '' }}" required>
-
+        <label for="photo">Photo (PNG, optional)</label>
+        <input id="photo" name="photo" type="file" accept="image/png">
         <div class="actions" style="justify-content:flex-start;margin-top:20px">
             <button class="btn" type="submit">Save</button>
             <a class="btn ghost" href="{{ url_for('characters') }}">Cancel</a>
