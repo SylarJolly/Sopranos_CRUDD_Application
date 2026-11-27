@@ -1,4 +1,4 @@
-# Sopranos CRUD App
+# Sopranos CRUDD App
 
 A full-stack CRUD application for characters from *The Sopranos*.
 
