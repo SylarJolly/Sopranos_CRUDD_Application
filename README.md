@@ -6,6 +6,32 @@ A full-stack CRUD application for characters from *The Sopranos*.
 - **Frontend:** Flask + Jinja templates (`app/frontend/`). It talks to the API over HTTP only and never touches the database.
 - **Tests:** pytest (`tests/`)
 
+## File Structure
+
+Sopranos_CRUDD_Application/
+├── app/                        BACKEND (FastAPI API)
+│   ├── main.py                 App setup, CORS, router registration
+│   ├── database.py             SQLite engine, session, get_db dependency
+│   ├── models.py               SQLAlchemy model (the characters table)
+│   ├── schemas.py              Pydantic schemas (validation rules)
+│   ├── routers/
+│   │   └── characters.py       The five CRUD endpoints
+│   ├── scripts/
+│   │   └── populate_db.py      Seeds the database with 12 characters
+│   └── frontend/               FRONTEND (Flask)
+│       ├── app.py              Flask routes: list, details, add, edit, delete, undo
+│       ├── api_client.py       All HTTP requests to the API
+│       ├── templates/          Jinja pages (base, index, characters, character, form, 404, api_down)
+│       └── static/             CSS and images (logo, guns, character photos)
+├── tests/
+│   ├── conftest.py             In-memory test database and fixtures
+│   └── test_characters.py      33 pytest tests
+├── sopranos.db                 SQLite database
+├── requirements.txt            Dependencies
+├── pyproject.toml              Project and pytest/Ruff settings
+├── README.md                   How to set up and run
+└── .github/workflows/ci.yaml   Runs Ruff and pytest on every push
+
 ## Setup
 
 Run these once, from the project folder:
